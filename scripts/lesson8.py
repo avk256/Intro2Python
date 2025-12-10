@@ -14,7 +14,8 @@
 - `import math as m` — те саме, але з псевдонімом `m`;
 - `from math import sqrt` — імпорт конкретної функції `sqrt` у поточний простір імен;
 - `from math import sin, cos` — імпорт кількох конкретних імен;
-- `from math import *` — імпорт усіх “публічних” імен (у реальних проєктах краще уникати, бо це забруднює простір імен та ускладнює читання).
+- `from math import *` — імпорт усіх “публічних” імен (у реальних проєктах краще уникати, 
+                                                        бо це забруднює простір імен та ускладнює читання).
 
 Імпорт — базовий механізм організації коду в Python.
 """
@@ -25,6 +26,8 @@ print("cos(pi) =", math.cos(math.pi))
 
 # Імпорт з псевдонімом
 import math as m
+# import pandas as pd
+# import numpy as np
 print("sin(pi/2) =", m.sin(m.pi / 2))
 
 # Імпорт конкретної функції
@@ -70,6 +73,12 @@ PROJECT_ROOT = os.path.dirname(os.path.dirname(__file__))
 print(PROJECT_ROOT)
 
 sys.path.append(PROJECT_ROOT)
+
+print(sys.path)
+
+print(sys.platform)
+
+
 
 from my_package import mymodule
 
@@ -150,13 +159,16 @@ if __name__ == "__main__":
 
 import math
 
+print(dir(int))
+
 print("Імена, визначені в модулі math:")
 print(dir(math)[:20], "...")  # виведемо перші 20 для стислості
 
 print("\nІмена в поточному просторі імен:")
-print(dir()[:20], "...")
+print(dir()[:50], "...")
 
 from my_package import name_demo
+
 
 # %%
 
