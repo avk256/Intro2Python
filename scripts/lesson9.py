@@ -38,19 +38,23 @@ https://clawshea.medium.com/exploring-pythons-namedtuples-a-comprehensive-tutori
 
 from collections import namedtuple
 
-Point = namedtuple('Point', ['x', 'y'])
+Point = namedtuple('Point2D', ['x', 'y'])
 
 p1 = Point(2, 3)
 p2 = Point(x=5, y=7)
 
 print(p1)
-print(p1.x, p1.y)
+print(type(p1))
 
+print(p2.x, p2.y)
 
 print(p1._asdict())
 
 # Створення "копії" з оновленим полем
 p3 = p1._replace(x=10)
+print(id(p1))
+print(id(p3))
+
 print(p3)
 
 isinstance(p2, tuple)
@@ -70,6 +74,7 @@ Point = namedtuple('Point', ['x', 'y'])
 points = [Point(0, 0), Point(3, 4), Point(-2, 5)]
 
 distances = [math.hypot(p.x, p.y) for p in points]
+
 print(distances)  # [0.0, 5.0, ~5.385]
 
 # %%
@@ -78,7 +83,8 @@ print(distances)  # [0.0, 5.0, ~5.385]
 """
 **Задача**
 
-У нас є список співробітників. Необхідно знайти всіх розробників та обчислити їхню середню зарплату."""
+У нас є список співробітників. Необхідно знайти всіх розробників та 
+обчислити їхню середню зарплату."""
 
 from collections import namedtuple
 
@@ -94,7 +100,12 @@ staff = [
     Employee('Sara', 'Developer', 3800)
 ]
 
+
+
+
 developers_salaries = [e.salary for e in staff if e.role == 'Developer']
+
+print(developers_salaries)
 
 if developers_salaries:
     avg_salary = sum(developers_salaries) / len(developers_salaries)
@@ -163,10 +174,12 @@ import collections
 student_marks = [4, 2, 4, 6, 7, 4, 2, 3, 4, 5, 6, 6, 7 , 1, 1, 1, 3, 5]
 mark_counts = collections.Counter(student_marks)
 print(mark_counts)
+print(type(mark_counts))
 
 print(mark_counts.most_common())
 print(mark_counts.most_common(1))
 print(mark_counts.most_common(2))
+
 
 
 # %%
@@ -174,7 +187,8 @@ print(mark_counts.most_common(2))
 
 """**Задача**
 
-Проаналізувати рядок замовлень (товарів), розділених комою, та вивести топ-3 найпопулярніших товари.
+Проаналізувати рядок замовлень (товарів), розділених комою, 
+та вивести топ-3 найпопулярніших товари.
 """
 
 from collections import Counter
@@ -182,12 +196,14 @@ from collections import Counter
 raw_orders = "apple,banana,apple,orange,banana,apple,grape,banana,kiwi,orange,apple"
 order_list = raw_orders.split(',')
 
+print(order_list)
+
 inventory = Counter(order_list)
 
 print(f"Повний підрахунок: {inventory}")
 
 print("\n--- ТОП-3 Товарів ---")
-for item, count in inventory.most_common(2):
+for item, count in inventory.most_common(3):
     print(f"Товар: {item} | Продано: {count}")
 
 
@@ -224,7 +240,9 @@ print(char_counts)
 
 """**Задача**
 
-Напишіть програму, яка приймає довгий рядок тексту, очищує його від знаків пунктуації, розбиває на слова (ігноруючи регістр) і виводить 5 найпопулярніших слів із зазначенням їх кількості.
+Напишіть програму, яка приймає довгий рядок тексту, 
+очищує його від знаків пунктуації, розбиває на слова (ігноруючи регістр)
+ і виводить 5 найпопулярніших слів із зазначенням їх кількості.
 
 """
 
@@ -232,7 +250,8 @@ from collections import Counter
 import string
 
 text = """
-Python is great. Python is easy to learn. The collections module in Python is powerful.
+Python is great. Python is easy to learn. 
+The collections module in Python is powerful.
 Python code is clean. Learning Python is fun. Code, code, code!
 """
 
@@ -241,8 +260,16 @@ translator = str.maketrans('', '', string.punctuation)
 clean_text = text.translate(translator).lower()
 words = clean_text.split()
 
+print(type(translator))
+print(clean_text)
+print(words)
+
+
 # 2. Підрахунок
 word_counts = Counter(words)
+
+
+print(word_counts)
 
 # 3. Вивід топ-5
 print("ТОП-5 слів:")
@@ -263,11 +290,17 @@ for word, count in word_counts.most_common(5):
 
 tmp_dict = dict()
 
-tmp_dict
+print(tmp_dict)
 
 tmp_dict['first'] = [1,3,4]
+tmp_dict['second'] = []
+tmp_dict['second'].append(1)
 
-tmp_dict
+print(tmp_dict)
+
+# %%
+
+
 
 from collections import defaultdict
 
@@ -289,7 +322,7 @@ print(json.dumps(grades_book, indent=2))
 
 """**Задача**
 
-Згрупувати числа (парні та непарні)
+Згрупувати числа (парні та непарні) в словник з ключами 'odd' 'even'
 
 """
 
@@ -299,6 +332,10 @@ numbers = [1, 2, 3, 4, 5, 6]
 
 print("--- 1. Звичайний dict (Поганий спосіб - Помилка) ---")
 d1 = {}
+# d1['odd'] = []
+# d1['even'] = []
+
+
 try:
     for n in numbers:
         key = 'even' if n % 2 == 0 else 'odd'
@@ -306,6 +343,8 @@ try:
         d1[key].append(n)
 except KeyError as e:
     print(f"Помилка: Ключ {e} не знайдено!")
+
+print(d1)
 
 
 print("\n--- 2. Звичайний dict (Робочий спосіб) ---")
@@ -323,6 +362,8 @@ print(f"Результат: {d2}")
 print("\n--- 3. defaultdict (Ідеальний спосіб) ---")
 
 d3 = defaultdict(list)
+
+print(type(d3))
 
 for n in numbers:
     key = 'even' if n % 2 == 0 else 'odd'
@@ -433,6 +474,8 @@ print(peek(stack))
 
 print(pop(stack))
 
+# %%
+
 from collections import deque
 
 # Стек
@@ -457,6 +500,7 @@ dq = deque([1, 2, 3])
 dq.appendleft(0)
 dq.append(4)
 print(dq)
+
 
 # %%
 
@@ -631,6 +675,8 @@ print(f"Float math: 0.1 + 0.2 = {0.1 + 0.2}")
 price = Decimal('19.99')
 quantity = Decimal('3')
 tax_rate = Decimal('0.075')  # 7.5%
+
+print(type(price))
 
 subtotal = price * quantity
 tax = subtotal * tax_rate
